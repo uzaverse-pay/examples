@@ -1,0 +1,13 @@
+# Python
+env/
+*-env/
+__pycache__/
+
+# JavaScript
+node_modules/
+
+# Database
+*.sqlite3
+
+# Other
+.env
