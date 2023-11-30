@@ -1,18 +1,31 @@
-const express = require("express")
-const jsonwebtoken = require("jsonwebtoken")
-const crypto = require("crypto")
-const dotenv = require("dotenv")
+const express = require("express");
+const cors = require("cors");
+const dotenv = require("dotenv");
 
-// Load all environment variables 
-dotenv.config();
+dotenv.config({ path: path.join(__dirname, "./.env") });
 
-// Get the public key from the environment variables
-const publicKey = process.env.PUBLIC_KEY;
+// project imports
+const response_code = require("../../constants/RESPONSE_CODE");
+const response_statut = require("../../constants/RESPONSE_STATUT");
+const orders = require("../node/routes/payment/makeOrderRouter");
+const payments = require("../node/routes/payment/makePaymentRouter");
 
 const app = express();
-app.use(express.json());
 
-const port = 3000;
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+app.use(cors());
+app.set("view engine", "ejs");
+app.use(express.static(__dirname + "/public"));
+app.use(express.urlencoded({ extended: true }));
+
+// routes 
+app.use("/makeOrder", orders);
+app.use("/makePayment", payments);
+
+app.all("*", (req, res) => {
+  res.status(response_code.NOT_FOUND).json({
+    statusCode: response_code.NOT_FOUND,
+    httpStatus: response_statut.NOT_FOUND,
+    message: "Error Route not Found",
+    result: [],
+  });
 });

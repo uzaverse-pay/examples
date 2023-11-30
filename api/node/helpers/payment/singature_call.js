@@ -1,5 +1,5 @@
 const signature_constants = require("../../constants/SIGNATURE");
-const verifyPaymentSignature = require("./signature.controller");
+const verifyPaymentSignature = require("./signature");
 
 const signatureCall = (request, result) => {
   const payload = request.body;
@@ -10,4 +10,4 @@ const signatureCall = (request, result) => {
   result.json({ isValid, message });
 };
 
-module.exports = signatureCall;
+module.exports = { signatureCall };

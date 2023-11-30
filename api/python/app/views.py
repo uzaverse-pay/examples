@@ -18,7 +18,7 @@ class MakePayment(APIView):
 
     try:
       uzaversepay_payment_url = "https://api-uzaversepay.uzaverse.com/sandbox/payments"
-      response = requests.post(uzaversepay_payment_url, json=data)
+      response = request.post(uzaversepay_payment_url, json=data)
     except Exception as e:
       return Response({"error": f"There is a problem with the gateway ({url}). Please contact them"})
 

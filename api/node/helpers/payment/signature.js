@@ -39,8 +39,9 @@ const verifyPaymentSignature = (payload, signature, publicKey) => {
       return [false, signature_constants.SIGNATURE_VERIFICATION_FAILED];
     }
   } catch (error) {
+    console.log(error);
     return [false, singature_public_key.LOAD_ERROR];
   }
 };
 
-module.exports = verifyPaymentSignature;
+module.exports = { verifyPaymentSignature };
